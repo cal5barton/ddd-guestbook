@@ -1,4 +1,5 @@
 ﻿using System;
+using DDDGuestbook.Core.Entities;
 using DDDGuestbook.Core.Interfaces;
 using DDDGuestbook.Core.SharedKernel;
 using DDDGuestbook.Infrastructure.Data;
@@ -50,7 +51,7 @@ namespace DDDGuestbook.Web
                     _.WithDefaultConventions();
                     _.ConnectImplementationsToTypesClosing(typeof(IHandle<>));
                 });
-                
+                config.For<IRepository<Guestbook>>().Use<GuestbookRepository>();
                 // TODO: Add Registry Classes to eliminate reference to Infrastructure
 
                 // TODO: Move to Infrastucture Registry

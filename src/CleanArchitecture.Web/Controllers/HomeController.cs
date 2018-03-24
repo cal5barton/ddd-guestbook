@@ -1,24 +1,52 @@
 ﻿using DDDGuestbook.Core.Entities;
+using DDDGuestbook.Core.Interfaces;
 using DDDGuestbook.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 
 namespace DDDGuestbook.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IRepository<Guestbook> _guestbookRepository;
+
+        public HomeController(IRepository<Guestbook> guestbookRepository)
+        {
+            _guestbookRepository = guestbookRepository;
+        }
+
         public IActionResult Index()
         {
-            var guestbook = new Guestbook() { Name = "My Guestbook" };
-            guestbook.Entries.Add(new GuestbookEntry { EmailAddress = "steve@deviq.com", Message = "Hi!", DateTimeCreated = DateTime.UtcNow.AddHours(-2) });
-            guestbook.Entries.Add(new GuestbookEntry { EmailAddress = "mark@deviq.com", Message = "Hi again!", DateTimeCreated = DateTime.UtcNow.AddHours(-1) });
-            guestbook.Entries.Add(new GuestbookEntry { EmailAddress = "michelle@deviq.com", Message = "Hello!", DateTimeCreated = DateTime.UtcNow });
+            if(!_guestbookRepository.List().Any())
+            {
+                var newGuestbook = new Guestbook() { Name = "My Guestbook" };
+                newGuestbook.Entries.Add(new GuestbookEntry { EmailAddress = "steve@deviq.com", Message = "Hi!", DateTimeCreated = DateTime.UtcNow.AddHours(-2) });
+                _guestbookRepository.Add(newGuestbook);
+            }
 
+            var guestbook = _guestbookRepository.GetById(1);
             var viewModel = new HomePageViewModel();
             viewModel.GuestbookName = guestbook.Name;
             viewModel.PreviousEntries.AddRange(guestbook.Entries);
 
             return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult Index(HomePageViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var guestbook = _guestbookRepository.GetById(1);
+                guestbook.Entries.Add(model.NewEntry);
+                _guestbookRepository.Update(guestbook);
+
+                model.PreviousEntries.Clear();
+                model.PreviousEntries.AddRange(guestbook.Entries);
+            }
+
+            return View(model);
         }
 
         public IActionResult Error()
