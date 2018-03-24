@@ -2,7 +2,7 @@
   <PropertyGroup>
     <RuntimeFrameworkVersion>2.0.0</RuntimeFrameworkVersion>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-    <AssemblyName>CleanArchitecture.Infrastructure</AssemblyName>
+    <AssemblyName>DDDGuestbook.Infrastructure</AssemblyName>
     <PackageId>CleanArchitecture.Infrastructure</PackageId>
   </PropertyGroup>
 
