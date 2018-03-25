@@ -1,6 +1,7 @@
 ﻿using System;
 using DDDGuestbook.Core.Entities;
 using DDDGuestbook.Core.Interfaces;
+using DDDGuestbook.Core.Services;
 using DDDGuestbook.Core.SharedKernel;
 using DDDGuestbook.Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
@@ -52,6 +53,7 @@ namespace DDDGuestbook.Web
                     _.ConnectImplementationsToTypesClosing(typeof(IHandle<>));
                 });
                 config.For<IRepository<Guestbook>>().Use<GuestbookRepository>();
+                config.For<IMessageSender>().Use<EmailMessageSenderService>();
                 // TODO: Add Registry Classes to eliminate reference to Infrastructure
 
                 // TODO: Move to Infrastucture Registry

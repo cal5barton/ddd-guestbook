@@ -11,10 +11,12 @@ namespace DDDGuestbook.Web.Controllers
     public class HomeController : Controller
     {
         private readonly IRepository<Guestbook> _guestbookRepository;
+        private readonly IMessageSender _messageSender;
 
-        public HomeController(IRepository<Guestbook> guestbookRepository)
+        public HomeController(IRepository<Guestbook> guestbookRepository, IMessageSender messageSender)
         {
             _guestbookRepository = guestbookRepository;
+            _messageSender = messageSender;
         }
 
         public IActionResult Index()
@@ -44,15 +46,7 @@ namespace DDDGuestbook.Web.Controllers
                 //notify all previous entries
                 foreach (var entry in guestbook.Entries)
                 {
-                    var message = new MailMessage();
-                    message.To.Add(new MailAddress(entry.EmailAddress));
-                    message.From = new MailAddress("donotreply@guestbook.com");
-                    message.Subject = "New guestbook entry";
-                    message.Body = model.NewEntry.Message;
-                    using (var client = new SmtpClient("localhost", 25))
-                    {
-                        client.Send(message);
-                    }
+                    _messageSender.SendGuestbookNotificationEmail(entry.EmailAddress, model.NewEntry.Message);
                 }
 
                 guestbook.Entries.Add(model.NewEntry);
