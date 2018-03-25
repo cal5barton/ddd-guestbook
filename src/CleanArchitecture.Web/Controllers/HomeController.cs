@@ -11,7 +11,6 @@ namespace DDDGuestbook.Web.Controllers
     public class HomeController : Controller
     {
         private readonly IRepository<Guestbook> _guestbookRepository;
-        private readonly IMessageSender _messageSender;
         private readonly IGuestbookService _guestbookService;
 
         public HomeController(IRepository<Guestbook> guestbookRepository, IGuestbookService guestbookService)
