@@ -19,12 +19,6 @@ namespace DDDGuestbook.Core.Services
 
         public void RecordEntry(Guestbook guestbook, GuestbookEntry newEntry)
         {
-            //notify all previous entries
-            foreach (var entry in guestbook.Entries)
-            {
-                _messageSender.SendGuestbookNotificationEmail(entry.EmailAddress, newEntry.Message);
-            }
-
             guestbook.Entries.Add(newEntry);
             _guestbookRepository.Update(guestbook);
         }

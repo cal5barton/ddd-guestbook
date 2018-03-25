@@ -42,8 +42,8 @@ namespace DDDGuestbook.Web.Controllers
             if (ModelState.IsValid)
             {
                 var guestbook = _guestbookRepository.GetById(1);
-
-                _guestbookService.RecordEntry(guestbook, model.NewEntry);
+                guestbook.AddEntry(model.NewEntry);
+                _guestbookRepository.Update(guestbook);
 
                 model.PreviousEntries.Clear();
                 model.PreviousEntries.AddRange(guestbook.Entries);
