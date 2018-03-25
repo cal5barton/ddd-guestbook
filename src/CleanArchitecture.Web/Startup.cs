@@ -4,6 +4,7 @@ using DDDGuestbook.Core.Interfaces;
 using DDDGuestbook.Core.Services;
 using DDDGuestbook.Core.SharedKernel;
 using DDDGuestbook.Infrastructure.Data;
+using DDDGuestbook.Infrastructure.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;

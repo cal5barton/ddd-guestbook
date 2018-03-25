@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Net.Mail;
 using System.Text;
 
-namespace DDDGuestbook.Core.Services
+namespace DDDGuestbook.Infrastructure.Services
 {
     public class EmailMessageSenderService : IMessageSender
     {
