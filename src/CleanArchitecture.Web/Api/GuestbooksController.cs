@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DDDGuestbook.Web.Api
 {
     [Route("api/[controller]")]
+    [VerifyGuestbookExists]
     [ValidateModel]
     public class GuestbooksController : Controller
     {
@@ -25,10 +26,6 @@ namespace DDDGuestbook.Web.Api
         public IActionResult GetById(int id)
         {
             var guestbook = _guestbookRepository.GetById(id);
-            if(guestbook == null)
-            {
-                return NotFound(id);
-            }
             return Ok(guestbook);
         }
 
@@ -36,10 +33,6 @@ namespace DDDGuestbook.Web.Api
         public IActionResult NewEntry(int id, [FromBody] GuestbookEntry entry)
         {
             var guestbook = _guestbookRepository.GetById(id);
-            if(guestbook == null)
-            {
-                return NotFound(id);
-            }
             guestbook.AddEntry(entry);
             _guestbookRepository.Update(guestbook);
 

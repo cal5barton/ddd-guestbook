@@ -27,6 +27,7 @@ namespace DDDGuestbook.Tests.Integration.Web
         {
             string invalidId = "100";
             var response = _client.GetAsync($"/api/guestbooks/{invalidId}").Result;
+
             Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
             var stringResponse = response.Content.ReadAsStringAsync().Result;
 
