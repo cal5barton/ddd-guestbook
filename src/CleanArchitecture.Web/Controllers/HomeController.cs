@@ -10,10 +10,10 @@ namespace DDDGuestbook.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IRepository<Guestbook> _guestbookRepository;
+        private readonly IGuestbookRepository _guestbookRepository;
         private readonly IGuestbookService _guestbookService;
 
-        public HomeController(IRepository<Guestbook> guestbookRepository, IGuestbookService guestbookService)
+        public HomeController(IGuestbookRepository guestbookRepository, IGuestbookService guestbookService)
         {
             _guestbookRepository = guestbookRepository;
             _guestbookService = guestbookService;

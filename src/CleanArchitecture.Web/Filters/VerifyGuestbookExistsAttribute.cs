@@ -15,9 +15,9 @@ namespace DDDGuestbook.Web.Filters
 
         private class VerifyGuestbookExistsFilter : IAsyncActionFilter
         {
-            private IRepository<Guestbook> _guestbookRepository;
+            private IGuestbookRepository _guestbookRepository;
 
-            public VerifyGuestbookExistsFilter(IRepository<Guestbook> guestbookRepository)
+            public VerifyGuestbookExistsFilter(IGuestbookRepository guestbookRepository)
             {
                 _guestbookRepository = guestbookRepository;
             }

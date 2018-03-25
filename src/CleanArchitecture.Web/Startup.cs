@@ -52,7 +52,7 @@ namespace DDDGuestbook.Web
                     _.WithDefaultConventions();
                     _.ConnectImplementationsToTypesClosing(typeof(IHandle<>));
                 });
-                config.For<IRepository<Guestbook>>().Use<GuestbookRepository>();
+                config.For<IGuestbookRepository>().Use<GuestbookRepository>();
                 config.For<IMessageSender>().Use<EmailMessageSenderService>();
                 // TODO: Add Registry Classes to eliminate reference to Infrastructure
 

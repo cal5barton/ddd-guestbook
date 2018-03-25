@@ -15,9 +15,9 @@ namespace DDDGuestbook.Web.Api
     [ValidateModel]
     public class GuestbooksController : Controller
     {
-        private IRepository<Guestbook> _guestbookRepository;
+        private IGuestbookRepository _guestbookRepository;
 
-        public GuestbooksController(IRepository<Guestbook> guestbookRepository)
+        public GuestbooksController(IGuestbookRepository guestbookRepository)
         {
             _guestbookRepository = guestbookRepository;
         }
